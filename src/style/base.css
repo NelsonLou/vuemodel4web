@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.clearfloat {
+    zoom: 1;
+}
+
+.clearfloat:after {
+    display: block;
+    visibility: hidden;
+    clear: both;
+    height: 0;
+    content: "";
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.margin-top {
+    margin-top: 20px;
+}
