@@ -1,7 +1,7 @@
 // axios配置文件 配置新的axios类
 import axios from 'axios'
 import qs from 'qs'
-import config from '@/config'
+import config from '@/apiConfig'
 import store from '../store'
 const {
 	env,

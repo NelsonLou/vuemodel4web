@@ -10,11 +10,11 @@ import components from './components/components.js';
 Vue.use(components);
 
 // 引入全局api接口配置文件
-import api from './config/api'
+import api from './apiConfig/api'
 Vue.prototype.$Api = api
 
 // 引入axios实例
-import Ax from '@/config/axios'
+import Ax from '@/apiConfig/axios'
 Vue.prototype.$Ax = Ax
 
 // 引入全局websorket方法

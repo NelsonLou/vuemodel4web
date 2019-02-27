@@ -1,4 +1,4 @@
-import api from '@/config/api'
+import api from '@/apiConfig/api'
 import store from '@/store'
 
 const state = {
