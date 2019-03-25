@@ -2,7 +2,7 @@
 module.exports = {
 	// 修改的配置
 	outputDir: process.env.outputDir,
-	baseUrl: '/',
+	publicPath: '/',
 	devServer: {
 		proxy: {
 			'/api': {

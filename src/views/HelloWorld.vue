@@ -27,12 +27,17 @@
       <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
     </ul>
+    <map-chart></map-chart>  
   </div>
 </template>
 
 <script>
+import mapChart from '@/components/Map_echarts'
 export default {
   name: 'HelloWorld',
+  components: {
+    mapChart,
+  },
   props: {
     msg: String
   }
