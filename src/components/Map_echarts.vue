@@ -132,9 +132,6 @@ export default {
       publicPath: process.env.BASE_URL
     };
   },
-  beforeCreate() {
-    this.id = mapid++;
-  },
   computed: {
     mapSize() {
       let height =
@@ -145,6 +142,7 @@ export default {
     }
   },
   created() {
+    this.id = mapid++;
     this.$nextTick(function() {
       this.initChart();
     });

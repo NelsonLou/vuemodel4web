@@ -13,10 +13,10 @@ const RouterConfig = {
 const router = new Router(RouterConfig) // 创建新的vue-router实例
 
 //路由跳转前执行
-router.beforeEach((to, from, next) => {})
+// router.beforeEach((to, from, next) => {})
 
 //路由跳转后执行
-router.afterEach((to) => {});
+// router.afterEach((to) => {});
 
 // 抛出router实例
 export default router
