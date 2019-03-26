@@ -4,32 +4,38 @@
 *
 */
 <template>
-  <div>
+  <Layout>
+    <Sider v-if="defaultSetting.menuPosition === 'left'">
+      <hl-menu/> 
+    </Sider>
     <Layout>
-      <hadlinks-siderMenu></hadlinks-siderMenu>
-      <Layout>
-        <hadlins-header>
-          <div slot=""></div>
-        </hadlins-header>  
-        <router-view />
-        <hadlins-footer />
-      </Layout>  
-    </Layout> 
-  </div>
+      <hl-header/>
+      <Content>
+        <router-view/>
+      </Content>  
+      <hl-footer/>
+    </Layout>  
+  </Layout> 
 </template>
 
 <script>
 import Header from './Header.vue'
 import Footer from './Footer.vue'
+import Menu from '@/components/SiderMenu'
+import defaultSetting from '@/utils/defaultSetting'
 export default {
   data () {
     return {
+      defaultSetting: defaultSetting,
     };
   },
   components: {
-    'hadlins-header': Header,
-    'hadlins-footer': Footer,
+    'hl-header': Header,
+    'hl-footer': Footer,
+    'hl-menu': Menu,
   },
+  created() {},
+  methods: {},
 }
 
 </script>

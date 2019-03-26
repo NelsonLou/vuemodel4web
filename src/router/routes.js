@@ -1,15 +1,37 @@
+// 基本布局不用按需加载
+import BasicLayout from '@/layouts/BasicLayout.vue'
+import UserLayout from '@/layouts/UserLayout.vue'
 // 组件导入（懒加载格式）
-const Login = () => import ('@/views/Login/Login.vue')
+const Login = () => import('@/views/User/Login.vue')
+const Register = () => import('@/views/User/Register.vue')
 
 // 路由配置
-export default [{
-	path: '/', //默认路径
-	redirect: '/Login', // 重定向配置
-	name: 'Login', // 组件名称（重要，生命周期相关）
-	component: Login, // 对应组件
-	// children: [{ //子组件配置
-	// 	path: '/',
-	// 	name: '',
-	// 	component:
-	// }]
-}]
+export default [
+	// 用户登录注册界面的布局
+	{
+		path: '/user',
+		component: UserLayout,
+		children: [
+			{ 
+				path: '/',
+				redirect: '/user/login',
+			},
+			{
+				path: '/user/login',
+				name: 'login',
+				component: Login,
+			},
+			{
+				path: '/user/register',
+				name: 'register',
+				component: Register,
+			}
+		]
+	}, 
+	// 根路径布局，其他模块挂在基本布局下
+	{
+		path: '/',
+		name: 'home',
+		component: BasicLayout,
+	}
+]

@@ -4,7 +4,7 @@
 *
 */
 <template>
-  <Header></Header>
+  <div>Register</div>
 </template>
 
 <script>

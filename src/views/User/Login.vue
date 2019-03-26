@@ -4,7 +4,10 @@
 *
 */
 <template>
-  <Header></Header>
+  <div>Login
+  <router-view></router-view>
+
+  </div>
 </template>
 
 <script>
