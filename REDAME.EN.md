@@ -1,8 +1,13 @@
-# vuemodel4web
+# Author
+    NelsonRay(nelson_l@sina.com) hadlinks R&d center
 
-     vue project mainly builds 'Webpack' project templates that rely on the creation of 'Vue-Cli 3'(https://cli.vuejs.org/).
-'Axios' (https://www.npmjs.com/package/axios) to control the normal HTTP requests, 'Vuex' (https://vuex.vuejs.org/zh/guide/)
-Control of global variables, 'Vue Router' control related routing (https://router.vuejs.org/). Attach webpack proxy request configuration and global websorket configuration.
+# vuemodel4web
+     vue project mainly builds 'Webpack' project templates that rely on the creation of
+     'Vue-Cli 3'(https://cli.vuejs.org/).
+     'Axios' (https://www.npmjs.com/package/axios) to control the normal HTTP requests,
+     'Vuex' (https://vuex.vuejs.org/zh/guide/)Control of global variables,
+     'Vue Router' control related routing (https://router.vuejs.org/).
+     Attach webpack proxy request configuration and global websorket configuration.
 
 ## Project setup
 ```

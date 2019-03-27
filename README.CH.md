@@ -1,8 +1,11 @@
+# Author
+    NelsonRay(nelson_l@sina.com) 海大物联研发中心
 # vuemodel4web
-
     vue项目主要构建依赖于vue-cli3(https://cli.vuejs.org/)创建的webpack项目模板，
-axios(https://www.npmjs.com/package/axios)控制普通http请求，vuex（https://vuex.vuejs.org/zh/guide/）
-控制全局变量，vue-router（https://router.vuejs.org/）控制路由相关。附加webpack代理请求配置以及全局websorket配置。
+    axios(https://www.npmjs.com/package/axios)控制普通http请求，
+    vuex（https://vuex.vuejs.org/zh/guide/）控制全局变量，
+    vue-router（https://router.vuejs.org/）控制路由相关。
+    附加webpack代理请求配置以及全局websorket配置。
 
 开发环境要求:
 

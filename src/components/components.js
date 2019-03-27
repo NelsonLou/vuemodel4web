@@ -1,6 +1,5 @@
 // 全局组件统一注册文件
-// import loading from './loading.vue';
-
+import dialogForm from './dialogForm.vue';
 export default (Vue) => {
-	// Vue.component("Loading", loading);
+	Vue.component("dialogForm", dialogForm);
 }

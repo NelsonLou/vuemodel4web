@@ -1,13 +1,17 @@
 <template>
 <div class="home">
-	海大物联研发中心vue后台开发模版
+	首页
 </div>
 </template>
 
 <script>
 export default {
 	name: 'home',
+	components: {},
+	mounted() {},
+	methods: {}
 }
 </script>
-<style scoped>
+
+<style>
 </style>

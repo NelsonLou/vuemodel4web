@@ -23,6 +23,30 @@
     float: right;
 }
 
-.margin-top {
+.marginTop {
     margin-top: 20px;
+}
+
+.marginRight {
+    margin-right: 20px;
+}
+
+.marginBottom {
+    margin-bottom: 20px;
+}
+
+.marginLeft {
+    margin-left: 20px;
+}
+
+.formInput {
+    width: 300px;
+}
+
+.relarive {
+    position: relative;
+}
+
+.ivu-btn-text {
+    color: #2D8CF0;
 }
