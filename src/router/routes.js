@@ -4,6 +4,7 @@ import UserLayout from '@/layouts/UserLayout.vue'
 // 组件导入（懒加载格式）
 const Login = () => import('@/views/User/Login.vue')
 const Register = () => import('@/views/User/Register.vue')
+const Map = () => import('@/views/MapChart/Map.vue')
 
 // 路由配置
 export default [
@@ -33,5 +34,12 @@ export default [
 		path: '/',
 		name: 'home',
 		component: BasicLayout,
+		children: [
+			{
+				path: '/mapchart/map',
+				name: 'map',
+				component: Map
+			}
+		],
 	}
 ]

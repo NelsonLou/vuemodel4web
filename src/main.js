@@ -2,7 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import iView from 'iview'
-import 'iview/dist/styles/iview.css';
+// import 'iview/dist/styles/iview.css';
+import './style/theme.less'
 // 引入vuex全局库
 import store from './store'
 Vue.prototype.$Store = store

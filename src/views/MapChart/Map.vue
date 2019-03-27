@@ -7,7 +7,6 @@
 <script>
 import mapChart from '@/components/Map_echarts'
 export default {
-  name: 'HelloWorld',
   components: {
     mapChart,
   },
