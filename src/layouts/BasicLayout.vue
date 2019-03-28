@@ -5,14 +5,20 @@
 */
 <template>
   <Layout style="min-height:100vh;">
-    <Sider 
+    <Sider
+      v-model="hide"
+      ref='sider' 
+      hide-trigger
+      collapsible
       class="hadlinks-sider"
       width="240"
       v-if="defaultSetting.menuPosition === 'left'">
       <hl-menu /> 
     </Sider>
     <Layout>
-      <hl-header class="hadlinks-header"/>
+      <hl-header 
+        class="hadlinks-header"
+        @on-siderTrigger="siderTrigger"/>
       <Content>
         <router-view/>
       </Content>  
@@ -34,6 +40,7 @@ export default {
   data () {
     return {
       defaultSetting: defaultSetting,
+      hide: false
     };
   },
   components: {
@@ -42,7 +49,12 @@ export default {
     'hl-menu': Menu,
   },
   created() {},
-  methods: {},
+  methods: {
+    siderTrigger() {
+      console.log(111)
+      this.$refs.sider.toggleCollapse()
+    },
+  },
 }
 
 </script>
@@ -50,10 +62,12 @@ export default {
   .hadlinks-sider {
     &.ivu-layout-sider {
       box-shadow: 2px 0 6px rgba(0,21,41,.35);
+      z-index: 9;
     }
   }
   .hadlinks-header {
     &.ivu-layout-header {
+      padding: 0;
       background: #fff;
       box-shadow: 0 1px 4px rgba(0,21,41,.08);
     }

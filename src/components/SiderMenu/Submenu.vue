@@ -13,7 +13,9 @@
       <MenuItem 
         v-if="!item.children" 
         :name="item.id"
-        :key="item.name">{{item.name}}</MenuItem>
+        :key="item.name">
+        <span>{{ item.name }}</span>
+      </MenuItem>
       <submenu 
         v-else 
         :children="item.children"
