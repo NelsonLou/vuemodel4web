@@ -1,13 +1,13 @@
 /*
-*
+* @params sNodes: <Array:<Object>> 具有父子关系的由对象组成的数组
 * setting: {
-*  childrenNO: <string>, //子菜单的字段
-*  parentNO: <string>, // 父菜单的字段
+*  childrenNO: <string>, //自身字段
+*  parentNO: <string>, // 父级字段
 *  childrenDesc: <string>, // 子元素的字段名称，默认children
 * }
 * 格式化树形结构
 */
-export function formDataMenus(sNodes, setting) {
+export function formDataTree(sNodes, setting) {
   let key = setting.childrenNO
   let parentKey = setting.parentNO
   if (!key || key == "" || !sNodes) return []

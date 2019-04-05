@@ -30,7 +30,7 @@
 <script>
 import Header from './Header.vue'
 import Footer from './Footer.vue'
-import Menu from '@/components/SiderMenu'
+import Menu from '@/components/SiderMenu/Index.vue'
 import defaultSetting from '@/utils/defaultSetting'
 export default {
   provide: {
@@ -51,7 +51,6 @@ export default {
   created() {},
   methods: {
     siderTrigger() {
-      console.log(111)
       this.$refs.sider.toggleCollapse()
     },
   },

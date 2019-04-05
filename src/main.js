@@ -4,6 +4,7 @@ import router from './router'
 import iView from 'iview'
 // import 'iview/dist/styles/iview.css';
 import './style/theme.less'
+// import '@babel/polyfill'
 // 引入vuex全局库
 import store from './store'
 Vue.prototype.$Store = store
