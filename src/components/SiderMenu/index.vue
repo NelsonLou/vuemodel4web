@@ -8,7 +8,7 @@
     <div class="logo-container">
       <router-link to="/">
         <img v-if="logo" :src="logo" alt="logo">
-        <h1 v-if="title" style="color:#eee;">{{title}}</h1>
+        <!-- <h1 v-if="title" style="color:#eee;">{{title}}</h1> -->
       </router-link>
     </div>
     <hl-sider-menu></hl-sider-menu>

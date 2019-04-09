@@ -4,27 +4,23 @@
 *
 */
 <template>
-  <Layout style="min-height:100vh;">
-    <Sider
-      v-model="hide"
-      ref='sider' 
-      hide-trigger
-      collapsible
+  <el-container style="min-height:100vh;">
+    <el-aside
       class="hadlinks-sider"
-      width="240"
+      width="auto"
       v-if="defaultSetting.menuPosition === 'left'">
       <hl-menu /> 
-    </Sider>
-    <Layout>
+    </el-aside>
+    <el-container direction="vertical">
       <hl-header 
         class="hadlinks-header"
         @on-siderTrigger="siderTrigger"/>
-      <Content>
+      <el-main>
         <router-view/>
-      </Content>  
+      </el-main>  
       <hl-footer/>
-    </Layout>  
-  </Layout> 
+    </el-container>  
+  </el-container> 
 </template>
 
 <script>
@@ -51,7 +47,6 @@ export default {
   created() {},
   methods: {
     siderTrigger() {
-      this.$refs.sider.toggleCollapse()
     },
   },
 }
@@ -59,13 +54,13 @@ export default {
 </script>
 <style lang='less'>
   .hadlinks-sider {
-    &.ivu-layout-sider {
+    &.el-aside {
       box-shadow: 2px 0 6px rgba(0,21,41,.35);
       z-index: 9;
     }
   }
   .hadlinks-header {
-    &.ivu-layout-header {
+    &.el-header {
       padding: 0;
       background: #fff;
       box-shadow: 0 1px 4px rgba(0,21,41,.08);

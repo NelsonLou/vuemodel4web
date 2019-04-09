@@ -4,7 +4,7 @@
 *
 */
 <template>
-  <Footer style="text-align:center;">Copyright &copy; 2019 海大物联</Footer>
+  <el-footer style="text-align:center;">Copyright &copy; 2019 海大物联</el-footer>
 </template>
 
 <script>

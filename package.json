@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "element-ui": "^2.7.2",
     "iview": "^3.3.3",
     "mddir": "^1.1.1",
     "vue": "^2.5.17",
@@ -28,6 +29,8 @@
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
     "mockjs": "^1.0.1-beta3",
+    "node-sass": "^4.11.0",
+    "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.5.17",
     "vuepress": "^0.14.10"
   },

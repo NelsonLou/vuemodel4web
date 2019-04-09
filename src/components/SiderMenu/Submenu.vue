@@ -4,18 +4,18 @@
 *
 */
 <template>
-  <Submenu :name="id">
+  <el-submenu :index="id">
     <template slot="title">
-        <Icon type="ios-paper" />
-       {{ name }}
+        <i class="el-icon-location"></i>
+      <span>{{ name }}</span>   
     </template>
     <template v-for="item in children">
-      <MenuItem 
+      <el-menu-item 
         v-if="!item.children" 
         :name="item.id"
         :key="item.name">
         <span>{{ item.name }}</span>
-      </MenuItem>
+      </el-menu-item>
       <submenu 
         v-else 
         :children="item.children"
@@ -23,7 +23,7 @@
         :name="item.name"
         :key="item.name"></submenu>
     </template>
-  </Submenu> 
+  </el-submenu> 
 </template>
 
 <script>

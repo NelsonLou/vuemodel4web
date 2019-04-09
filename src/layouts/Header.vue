@@ -4,15 +4,15 @@
 *
 */
 <template>
-  <Header>
+  <el-header>
     <div class="menu-left-header">
       <span class="menu-left-header-span" @click.stop="triggerMenu">
-        <Icon :class="rotateIcon" type="md-menu"/>
+        <i class="el-icon-d-arrow-left" :class="rotateIcon"></i>
       </span>
       <div class="header-right"></div>
     </div>
     <div class="menu-top-header"></div>
-  </Header>
+  </el-header>
 </template>
 
 <script>
@@ -53,7 +53,7 @@ export default {
       transition: all .3s;
     }
     .rotate-icon {
-      transform: rotate(-90deg);
+      transform: rotate(-180deg);
     }
   }
 }

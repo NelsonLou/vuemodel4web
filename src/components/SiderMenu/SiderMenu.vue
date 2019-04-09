@@ -4,22 +4,20 @@
 *
 */
 <template>
-  <Menu
+  <el-menu
     :class="menuitemClasses"
-    width="auto"
-    :active-name="activeName"
-    :open-names="openNames"
-    :accordion="true"
-    :theme="theme"
+    collapse-transition
+    :collapse="isCollapsed"
+    unique-opened
     :mode="mode"
   >
     <template v-for="menu in menus">
-      <MenuItem 
+      <el-menu-itme 
         v-if="!menu.children" 
         :key="menu.name" 
         :name="menu.id">
         <span>{{ menu.name }}</span>
-      </MenuItem>
+      </el-menu-itme>
       <hl-submenu
         v-else
         :key="menu.name"
@@ -28,7 +26,7 @@
         :name="menu.name"
       />
     </template>
-  </Menu>
+  </el-menu>
 </template>
 
 <script>
@@ -93,29 +91,32 @@ export default {
 
 </script>
 <style lang='less'>
-.menu-item span {
-  display: inline-block;
-  overflow: hidden;
-  width: 69px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  vertical-align: bottom;
-  transition: width 0.2s ease 0.2s;
+.el-menu:not(.el-menu--collapse) {
+  width: 240px;
 }
-.menu-item i {
-  transform: translateX(0px);
-  transition: font-size 0.2s ease, transform 0.2s ease;
-  vertical-align: middle;
-  font-size: 16px;
-}
-.collapsed-menu span {
-  width: 0px;
-  transition: width 0.2s ease;
-}
-.collapsed-menu i {
-  transform: translateX(5px);
-  transition: font-size 0.2s ease 0.2s, transform 0.2s ease 0.2s;
-  vertical-align: middle;
-  font-size: 22px;
-}
+// .menu-item span {
+//   display: inline-block;
+//   overflow: hidden;
+//   width: 69px;
+//   text-overflow: ellipsis;
+//   white-space: nowrap;
+//   vertical-align: bottom;
+//   transition: width 0.2s ease 0.2s;
+// }
+// .menu-item i {
+//   transform: translateX(0px);
+//   transition: font-size 0.2s ease, transform 0.2s ease;
+//   vertical-align: middle;
+//   font-size: 16px;
+// }
+// .collapsed-menu span {
+//   width: 0px;
+//   transition: width 0.2s ease;
+// }
+// .collapsed-menu i {
+//   transform: translateX(5px);
+//   transition: font-size 0.2s ease 0.2s, transform 0.2s ease 0.2s;
+//   vertical-align: middle;
+//   font-size: 22px;
+// }
 </style>
