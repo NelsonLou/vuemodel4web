@@ -28,8 +28,8 @@ export default {
   },
   data() {
     return {
-      showCode: false,
       node: [],
+      // 传入组件的data为树形结构
       data: formDataTree(mockList,{
         parentNO: 'parentId',
         childrenNO: 'id',

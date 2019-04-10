@@ -2,7 +2,7 @@ const path = require('path')
 module.exports = {
 	title: '海大物联组件文档1.0',
 	description: '海大物联组件文档',
-	base: '/',
+	base: '/dist/',
 	evergreen: true,
 	configureWebpack: {
     resolve: {
@@ -24,14 +24,15 @@ module.exports = {
       {
         title: '业务组件',
         children: [ 
-					'/business/'
 				 ]
       },
       {
         title: '组件贡献',
         children: [
 					'/common/',
-					'/business/'
+					'/common/doc',
+					'/business/',
+					'/business/doc'
         ]
       },
       {

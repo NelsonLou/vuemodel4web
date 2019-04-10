@@ -18,15 +18,17 @@
       </el-table-column>
       <el-table-column label="菜单权限" width="250px">
         <template slot-scope="scope">
-          <section 
-            :class="preFix + 'section'"
-            :key="item.id"
-            v-for="item in scope.row.childList">
-            <authorized-item
-              v-model="item.power" 
-              @on-change="change" 
-              :item="item">{{ item.name }}</authorized-item>
-          </section>
+          <div :class="preFix + 'section-container'">
+            <section 
+              :class="preFix + 'section'"
+              :key="item.id"
+              v-for="item in scope.row.childList">
+              <authorized-item
+                v-model="item.power" 
+                @on-change="change" 
+                :item="item">{{ item.name }}</authorized-item>
+            </section>
+          </div>
         </template>
       </el-table-column>
       <el-table-column label="具体权限">
@@ -46,13 +48,11 @@
         </template>
       </el-table-column>
     </el-table>
-    <!-- <pre style="color:#eee;">{{JSON.stringify(permissionList,null,2)}}</pre> -->
   </div>
 </template>
 
 <script>
 const preFix = 'authorized-table-'
-import { formDataTree } from '@/utils/formatToTree.js'
 import AuthorizedItem from './AuthorizedItem.vue'
 export default {
   components: {
