@@ -42,7 +42,7 @@ export default {
     line-height: 64px;
     overflow: hidden;
     padding-left: 24px;
-    background: #0d0f10;
+    background: #67b1d6;
     transition: all 0.3s;
   }
 </style>

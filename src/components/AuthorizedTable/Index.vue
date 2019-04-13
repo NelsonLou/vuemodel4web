@@ -4,46 +4,31 @@
 *
 */
 <template>
-  <div :class="preFix + 'container'">
-    <el-table
-      border
-      :data="permissionList">
-      <el-table-column label="目录权限" width="250px">
+  <div class="authorized-table-container">
+    <el-table border :data="permissionData" :span-method="cellMerge">
+      <template v-for="i in ans">
+        <el-table-column width="200" :label="titleList[i-1]" :key="i">
+          <template slot-scope="scope">
+            <authorized-item
+              v-if="scope.row[i-1]"
+              :item="scope.row[i-1]"
+              @on-change="change"
+              v-model="scope.row[i-1].power"
+            >{{ scope.row[i-1].name }}</authorized-item>
+          </template>
+        </el-table-column>
+      </template>
+      <el-table-column :label="titleList[ans]" min-width="200">
         <template slot-scope="scope">
-          <authorized-item 
-            v-model="scope.row.power" 
-            :item="scope.row" 
-            @on-change="change">{{ scope.row.name }}</authorized-item>
-        </template>
-      </el-table-column>
-      <el-table-column label="菜单权限" width="250px">
-        <template slot-scope="scope">
-          <div :class="preFix + 'section-container'">
-            <section 
-              :class="preFix + 'section'"
+          <template v-if="scope.row[ans]">
+            <authorized-item
+              v-for="item in scope.row[ans]"
               :key="item.id"
-              v-for="item in scope.row.childList">
-              <authorized-item
-                v-model="item.power" 
-                @on-change="change" 
-                :item="item">{{ item.name }}</authorized-item>
-            </section>
-          </div>
-        </template>
-      </el-table-column>
-      <el-table-column label="具体权限">
-        <template slot-scope="scope" >
-          <template v-for="item in scope.row.childList">
-            <section :key="item.id" :class="preFix + 'section'">
-              <template v-if="item.childList && item.childList.length">
-                <authorized-item
-                  v-for="subitem in item.childList"
-                  :key="subitem.id"
-                  :item="subitem"
-                  @on-change="change" 
-                  v-model="subitem.power">{{ subitem.name }}</authorized-item>
-              </template>
-            </section>
+              style="margin-right: 15px;"
+              :item="item"
+              @on-change="change"
+              v-model="item.power"
+            >{{item.name}}</authorized-item>
           </template>
         </template>
       </el-table-column>
@@ -52,52 +37,136 @@
 </template>
 
 <script>
-const preFix = 'authorized-table-'
-import AuthorizedItem from './AuthorizedItem.vue'
+import AuthorizedItem from "./AuthorizedItem.vue";
 export default {
   components: {
-    'authorized-item': AuthorizedItem,
+    "authorized-item": AuthorizedItem
   },
   props: {
     data: {
       type: Array,
       default: () => []
     },
+    titleList: {
+      type: Array,
+      default: () => []
+    },
+    deep: {
+      type: Number,
+    },
   },
-  data () {
+  data() {
     return {
-      preFix: preFix,
-      permissionList: this.data,
+      permissionData: [],
+      ans: this.deep || 2,
     };
   },
-  methods: {
-    change(val,e) {
-      this.$emit('on-change', val)
+  watch: {
+    deep: {
+      immediate: true,
+      handler(value) {
+        this.ans = value
+      }
+    },
+    data: {
+      immediate: true,
+      handler(value) {
+        if (value.length) {
+          let temp = formatData(value, this.deep)
+          this.permissionData = temp.permissionData
+          if (!this.deep) {
+            this.ans = temp.ans
+          }
+        }
+      }
     }
   },
+  computed: {
+    computedSpan() {
+      let arr = [];
+      for (let j = 0; j <= this.ans - 2; j++) {
+        let map = new Map();
+        for (let i = 0; i < this.permissionData.length; i++) {
+          let times =
+            (map.get(this.permissionData[i][j].id) &&
+              map.get(this.permissionData[i][j].id).times) ||
+            0;
+          map.set(this.permissionData[i][j].id, { times: times + 1, index: i });
+        }
+        arr.push(map);
+      }
+      return arr;
+    }
+  },
+  methods: {
+    change(val, e) {
+      this.$emit("on-change", val);
+    },
+    cellMerge({ row, column, rowIndex, columnIndex }) {
+      if (columnIndex <= this.ans - 2) {
+        let map = this.computedSpan[columnIndex];
+        let obj = map.get(row[columnIndex].id);
+        if (obj.index - obj.times + 1 === rowIndex) {
+          return [obj.times, 1];
+        } else {
+          return [0, 0];
+        }
+      }
+    }
+  }
+};
+function formatData(data, deep) {
+  let arr = [];
+  let temp = {
+    childList: data
+  };
+  // 获取树的深度，如果确定可以直接设置，0为1层，
+  let ans = deep || getDeep(temp);
+  for (let i = 0; i < data.length; i++) {
+    arr.push(...createItem(data[i], ans));
+  }
+  return { permissionData: arr, ans };
+  function getDeep(node) {
+    let ans = 0;
+    dfs(node, 0);
+    return ans - 1;
+    function dfs(node, deep) {
+      if (!node.childList) {
+        ans = Math.max(ans, deep);
+        return;
+      } else {
+        for (let i = 0; i < node.childList.length; i++) {
+          dfs(node.childList[i], deep + 1);
+        }
+      }
+    }
+  }
 }
-
+function createItem(data, ans) {
+  let arr = [];
+  // 将数据格式化为表格数据
+  dfs(data, 0);
+  return arr;
+  function dfs(node, deep, temp = {}) {
+    temp[deep] = node;
+    // console.log(node,deep,temp);
+    if (deep === ans) return;
+    if (!node.childList || deep === ans - 1) {
+      if (deep === ans - 1) {
+        temp[deep + 1] = node.childList;
+      }
+      arr.push(temp);
+      return;
+    } else {
+      for (let i = 0; i < node.childList.length; i++) {
+        let obj = Object.assign({}, temp);
+        dfs(node.childList[i], deep + 1, obj);
+      }
+    }
+  }
+}
 </script>
 <style lang='less'>
 .authorized-table-container {
-  .authorized-table-section {
-    margin: 0 -10px;
-    padding: 12px 10px;
-    border-bottom: 1px solid #eee;
-    height: 48px;
-    box-sizing: border-box;
-    &:first-child {
-      padding-top: 0;
-      height: 36px;
-    }
-    &:last-child {
-      height: 36px;
-      padding-bottom: 0px;
-      border-bottom: none;
-    }
-    &:only-child {
-      height: auto;
-    }
-  }
 }
 </style>

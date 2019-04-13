@@ -40,6 +40,6 @@ export default {
 <style lang='less'>
 .authorized-item {
 	display: inline-block;
-	min-width: 150px;
+	min-width: 100px;
 }
 </style>

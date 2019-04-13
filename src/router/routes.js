@@ -2,8 +2,8 @@
 import BasicLayout from '@/layouts/BasicLayout.vue'
 import UserLayout from '@/layouts/UserLayout.vue'
 // 组件导入（懒加载格式）
-const Login = () => import('@/views/User/Login.vue')
-const Register = () => import('@/views/User/Register.vue')
+const Login = () => import('@/views/User/UserLogin.vue')
+const Register = () => import('@/views/User/UserRegister.vue')
 const Map = () => import('@/views/MapChart/Map.vue')
 
 // 路由配置

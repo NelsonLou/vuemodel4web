@@ -4,7 +4,7 @@
 *
 */
 <template>
-  <el-container style="min-height:100vh;">
+  <el-container class="basic-container">
     <el-aside
       class="hadlinks-sider"
       width="auto"
@@ -53,6 +53,9 @@ export default {
 
 </script>
 <style lang='less'>
+.basic-container {
+  min-height:100vh;
+  background:#f9f9f9;
   .hadlinks-sider {
     &.el-aside {
       box-shadow: 2px 0 6px rgba(0,21,41,.35);
@@ -66,4 +69,5 @@ export default {
       box-shadow: 0 1px 4px rgba(0,21,41,.08);
     }
   }
+}
 </style>

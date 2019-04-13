@@ -1,12 +1,12 @@
 /*
-* @params sNodes: <Array:<Object>> 具有父子关系的由对象组成的数组
-* setting: {
-*  childrenNO: <string>, //自身字段
-*  parentNO: <string>, // 父级字段
-*  childrenDesc: <string>, // 子元素的字段名称，默认children
-* }
-* 格式化树形结构
-*/
+ * @params sNodes: <Array:<Object>> 具有父子关系的由对象组成的数组
+ * setting: {
+ *  childrenNO: <string>, //自身字段
+ *  parentNO: <string>, // 父级字段
+ *  childrenDesc: <string>, // 子元素的字段名称，默认children
+ * }
+ * 格式化树形结构
+ */
 export function formDataTree(sNodes, setting) {
   let key = setting.childrenNO
   let parentKey = setting.parentNO
@@ -45,4 +45,21 @@ let nodeChildren = (setting, node, newChildren) => {
     node[key] = newChildren;
   }
   return node[key];
+}
+// 获取多叉树的深度，从0开始
+export function getDeep(node) {
+  let ans = 0;
+  dfs(node, 0);
+  return ans - 1;
+
+  function dfs(node, deep) {
+    if (!node.childList) {
+      ans = Math.max(ans, deep);
+      return;
+    } else {
+      for (let i = 0; i < node.childList.length; i++) {
+        dfs(node.childList[i], deep + 1);
+      }
+    }
+  }
 }

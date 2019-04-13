@@ -1,4 +1,4 @@
-export const mockList = Array(16).fill(1).map((_,index
+let mockList = Array(18).fill(1).map((_,index
   )=>{
   return {
     id: index,
@@ -7,3 +7,20 @@ export const mockList = Array(16).fill(1).map((_,index
     power: (index % 2) ? true : false
   }
 })
+mockList.push({
+  id:18,
+  parentId:9,
+  name:'test',
+  power: false,
+},{
+  id:19,
+  parentId:9,
+  name:'test1',
+  power: false,
+},{
+  id:20,
+  parentId:9,
+  name:'test2',
+  power: true,
+})
+export { mockList }

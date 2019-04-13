@@ -39,6 +39,7 @@ module.exports = {
         title: '其他说明',
         children: [
 					'/other/',
+					'/other/code-container',
         ]
       },
     ],
