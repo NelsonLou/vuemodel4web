@@ -91,7 +91,21 @@ const validateCode = function() {
 	}
 }
 
+const userList = function() {
+	let data = [{
+		date: '2016-05-02',
+		name: '王小虎',
+		address: '上海市普陀区金沙江路 1518 弄',
+		// status: ''
+	}]
+	return {
+		data
+	}
+}
+
 // 登陆
 Mock.mock('/mock/login', 'post', postLogin);
 // 获取验证码
 Mock.mock('/mock/validateCode', 'get', validateCode);
+// 用户列表
+Mock.mock('/mock/userList', 'get', userList);

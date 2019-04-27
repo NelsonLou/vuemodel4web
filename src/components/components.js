@@ -1,5 +1,5 @@
 // 全局组件统一注册文件
-import dialogForm from './dialogForm.vue';
+import tableComp from './tableComp.vue';
 export default (Vue) => {
-	Vue.component("dialogForm", dialogForm);
+	Vue.component("tableComp", tableComp);
 }

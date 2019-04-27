@@ -1,39 +1,28 @@
 <template>
 <div class="login clearfloat">
-	<Card class="login-card right">
-		<div class="login-header">LOGO</div>
-		<Form ref="loginForm" :model="loginForm" :rules="rule" class="login-form">
-			<FormItem prop="userName">
-				<!-- eslint-disable -->
-				<Input type="text" @on-enter='handleFocus("un")' v-model="loginForm.userName" id='unInput' placeholder="用户名">
-				<Icon type="ios-person-outline" slot="prepend"></Icon>
-				</Input>
-				<!-- eslint-enable -->
-			</FormItem>
-			<FormItem prop="password">
-				<!-- eslint-disable -->
-				<Input type="password" @on-enter='handleFocus("pw")' v-model="loginForm.password" id='pwdInput' placeholder="密码">
-				<Icon type="ios-lock-outline" slot="prepend"></Icon>
-				</Input>
-				<!-- eslint-enable -->
-			</FormItem>
-			<FormItem prop="code">
-				<!-- eslint-disable -->
-				<Input type="text" @on-enter='handleFocus("va")' v-model="loginForm.code" id='vaInput' placeholder="验证码（不区分大小写）">
-				<Icon type="ios-key-outline" slot="prepend"></Icon>
-				</Input>
-				<!-- eslint-enable -->
-			</FormItem>
-			<Tooltip content="点击刷新验证码" placement="right">
-				<canvas @click='getValidateCode' id='validateBox'>
-				</canvas>
-			</Tooltip>
-			<div class="btnBox clearfloat">
-				<Button class="right" type="primary" @click="handleLogin()">登录</Button>
-				<Button class="left" type="text" @click="handleReset()">重置</Button>
-			</div>
-		</Form>
-	</Card>
+	<el-card class="login_card right">
+		<div class="login_LOGO">
+			LOGO
+		</div>
+		<el-form :model="loginForm" status-icon :rules="rules" ref="loginForm" class="demo-ruleForm">
+			<el-form-item prop="pass">
+				<el-input placeholder='用户名' v-model="loginForm.pass" autocomplete="off"></el-input>
+			</el-form-item>
+			<el-form-item prop="checkPass">
+				<el-input type="password" placeholder='密码' v-model="loginForm.checkPass" autocomplete="off"></el-input>
+			</el-form-item>
+			<el-form-item prop="age" class="clearfloat">
+				<el-input placeholder='验证码' v-model.number="loginForm.age" style="width:35%;"></el-input>
+				<canvas id="validateBox" class="right"></canvas>
+			</el-form-item>
+			<el-form-item>
+			</el-form-item>
+			<el-form-item>
+				<el-button type="primary" @click="submitForm('loginForm')">提交</el-button>
+				<el-button @click="resetForm('loginForm')">重置</el-button>
+			</el-form-item>
+		</el-form>
+	</el-card>
 </div>
 </template>
 <script>
@@ -50,7 +39,7 @@ export default {
 				code: '',
 				codeId: '',
 			},
-			rule: {
+			rules: {
 				userName: [{
 					required: true,
 					message: '用户名不能为空',
@@ -206,55 +195,23 @@ export default {
 }
 </script>
 <style scope>
-.login {
-	margin: 0 auto;
-	margin-top: 15%;
-	border-top: 1px solid transparent;
-}
-
-.login-card {
-	width: 350px;
+.login_card {
+	width: 400px;
 	height: 450px;
 	margin-right: 200px;
+	margin-top: 15%;
 }
 
-.company-card {
-	width: 700px;
-	height: 500px;
-	background-color: gray;
-	background-size: 100% 100%;
-}
-
-
-.login-header {
-	width: 100px;
-	height: 100px;
-	margin: 0 auto;
-	/* demo */
+.login_LOGO {
+	height: 80px;
+	line-height: 80px;
+	font-size: 30px;
 	text-align: center;
-	font-size: 40px;
-	font-weight: 700;
-	line-height: 100px;
 }
 
-.login-form {
-	width: 70%;
-	margin: 0 auto;
-}
-
-.btnBox {
+#validateBox {
+	border-radius: 10px;
 	width: 60%;
-	margin: 0 auto;
-	margin-top: 20px;
-}
-
-.validateBox {
-	height: 100px;
-	/* background-color: gray */
-}
-
-.img {
-	width: 100px;
-	height: 100px;
+	height: 55px;
 }
 </style>
