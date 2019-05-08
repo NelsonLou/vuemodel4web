@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import iView from 'iview'
 import Router from 'vue-router'
 import store from '@/store'
 import routes from '@/router/routes'
@@ -14,7 +13,6 @@ const router = new Router(RouterConfig)
 
 // 路由跳转前
 router.beforeEach((to, from, next) => {
-	iView.LoadingBar.start();
 	let token = !sessionStorage.getItem('token'),
 		path = to.path
 	if (token && path == '/login') {
@@ -30,8 +28,6 @@ router.beforeEach((to, from, next) => {
 })
 
 // 路由跳转后
-router.afterEach(() => {
-	iView.LoadingBar.finish();
-})
+router.afterEach(() => {})
 
 export default router

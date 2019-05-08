@@ -1,16 +1,11 @@
 <template lang="html">
 <div class="tableComp">
     <el-table :data="tableData" stripe fit style="width: 100%" :empty-text='"暂无数据"'>
-        <el-table-column align='center' prop="name" label="用户名" width="180"></el-table-column>
-        <el-table-column align='center' prop="name" label="角色类型" width="180"></el-table-column>
-        <el-table-column align='center' prop="address" label="最近登陆日期"></el-table-column>
-        <el-table-column align='center' prop="status" label="状态">
-            <slot name="empty">--</slot>
+        <el-table-column v-for='(item,index) in tableConf' :key='index' align='center' :prop="item.prop" :label="item.label">
         </el-table-column>
-        <el-table-column align='center' label="操作" width="100">
+        <el-table-column v-for='(actItem,actIndex) in tableActConf' align='center' :label="actItem.label">
             <template slot-scope="scope">
-            <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-            <el-button type="text" size="small">编辑</el-button>
+                <el-button v-for='(actItemC,index) in actItem.child' @click="handleClick(scope.row,actItemC.methodsName)" type="text" size="small">{{actItemC.label}}</el-button>
             </template>
         </el-table-column>
     </el-table>
@@ -21,35 +16,35 @@
 export default {
 	name: 'tableComp',
 	props: {
-		dataUrl: {
-			type: String,
+		tableConf: {
+			type: Array,
 			required: true
 		},
+		tableActConf: {
+			type: Array,
+			default: [],
+			required: false
+		}
 	},
 	data() {
 		return {
-			tableData: [{
-				date: '2016-05-02',
-				name: '王小虎',
-				address: '上海市普陀区金沙江路 1518 弄',
-				// status: ''
-			}]
+			tableData: []
 		}
 	},
-	mounted() {
-		console.log('sss');
-	},
+	mounted() {},
 	methods: {
-		getTableData() {
-			this.$Ax.get(this.dataUrl, {
-				params: para
-			}).then(res => {
-				// eslint-disable-next-line
-				console.log(res);
+		getTableData(api, para) {
+			this.$Ax.get(api,
+				// {params: para}
+			).then(res => {
+				this.tableData = res.data
 			}).catch(err => {
 				// eslint-disable-next-line
 				console.log(err);
 			})
+		},
+		handleClick(row, methodsName) {
+			this.$parent[methodsName](row)
 		}
 	}
 }

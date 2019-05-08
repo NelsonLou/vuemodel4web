@@ -3,10 +3,10 @@ import App from './App'
 import router from './router'
 import store from './store'
 //
-// // iView 完整引入
+// ElementUI 完整引入
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-//
+
 // 引入全局表格组件
 import components from '@/components/components.js';
 Vue.use(components);
@@ -27,7 +27,7 @@ var echarts = require('echarts');
 Vue.prototype.$Echarts = echarts
 
 // 引入全局数据处理方法
-import utils from './utils/dealNullData.js'
+import utils from './utils/dealData.js'
 Vue.prototype.$Utils = utils
 
 // 引入mock

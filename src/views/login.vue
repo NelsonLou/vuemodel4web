@@ -1,25 +1,23 @@
 <template>
 <div class="login clearfloat">
 	<el-card class="login_card right">
-		<div class="login_LOGO">
-			LOGO
-		</div>
+		<div class="login_LOGO"></div>
 		<el-form :model="loginForm" status-icon :rules="rules" ref="loginForm" class="demo-ruleForm">
-			<el-form-item prop="pass">
-				<el-input placeholder='用户名' v-model="loginForm.pass" autocomplete="off"></el-input>
+			<el-form-item prop="userName">
+				<el-input ref='userNameIP' placeholder='用户名' @keyup.enter.native="handleFocus('pwdIP')" v-model="loginForm.userName"></el-input>
 			</el-form-item>
-			<el-form-item prop="checkPass">
-				<el-input type="password" placeholder='密码' v-model="loginForm.checkPass" autocomplete="off"></el-input>
+			<el-form-item prop="password">
+				<el-input ref='pwdIP' placeholder='密码' @keyup.enter.native="handleFocus('validateBoxIP')" v-model="loginForm.password" type="password"></el-input>
 			</el-form-item>
-			<el-form-item prop="age" class="clearfloat">
-				<el-input placeholder='验证码' v-model.number="loginForm.age" style="width:35%;"></el-input>
+			<el-form-item prop="code" class="clearfloat" v-loading="validateLoading">
+				<el-input ref='validateBoxIP' placeholder='验证码' v-model.number="loginForm.code" @keyup.enter.native="handleLogin('validateBoxIP')" class="validateBoxIP"></el-input>
 				<canvas id="validateBox" class="right"></canvas>
 			</el-form-item>
 			<el-form-item>
 			</el-form-item>
 			<el-form-item>
 				<el-button type="primary" @click="submitForm('loginForm')">提交</el-button>
-				<el-button @click="resetForm('loginForm')">重置</el-button>
+				<el-button @click="handleReset('loginForm')">重置</el-button>
 			</el-form-item>
 		</el-form>
 	</el-card>
@@ -31,8 +29,9 @@ export default {
 	data() {
 		return {
 			img: '',
+			focus: 'userName',
 			validateLoading: false,
-			timer: null,
+			flagSubmit: false,
 			loginForm: {
 				userName: '',
 				password: '',
@@ -50,7 +49,7 @@ export default {
 					message: '密码不能为空',
 					trigger: 'blur'
 				}],
-				validate: [{
+				code: [{
 					required: true,
 					message: '验证码不能为空',
 					trigger: 'blur'
@@ -58,13 +57,14 @@ export default {
 			}
 		}
 	},
-	created() {
-		this.$store.dispatch('getValidateCode')
-	},
+	created() {},
 	computed: {
 		code() {
 			return this.$store.state.login.code
 		},
+	},
+	mounted() {
+		this.$store.dispatch('getValidateCode')
 	},
 	watch: {
 		code(val) {
@@ -142,54 +142,37 @@ export default {
 		},
 		// 登录相关
 		handleLogin() {
-			let userInput = document.getElementById('unInput'),
-				pwdInput = document.getElementById('pwdInput'),
-				vaInput = document.getElementById('vaInput')
+			this.flagSubmit = true
 			this.$refs['loginForm'].validate((valid) => {
 				if (valid) {
-					this.loginForm.codeId = this.$store.state.login.codeId
 					this.$store.dispatch('handleLogin', this.loginForm)
 				} else {
 					if (this.loginForm.userName == '') {
-						this.timer = setTimeout(function() {
-							userInput.children[2].focus()
-							userInput.children[2].select()
-						}, 100)
+						this.$refs.userNameIP.focus()
 					} else if (this.loginForm.password == '') {
-						this.timer = setTimeout(function() {
-							pwdInput.children[2].focus()
-							pwdInput.children[2].select()
-						})
+						this.$refs.pwdIP.focus()
 					} else if (this.loginForm.code == '') {
-						this.timer = setTimeout(function() {
-							vaInput.children[2].focus()
-							vaInput.children[2].select()
-						})
+						this.$refs.validateBoxIP.focus()
 					}
+					return false;
 				}
-			})
+			});
 		},
 		// 控制焦点
-		handleFocus(count) {
-			let pwdInput = document.getElementById('pwdInput'),
-				vaInput = document.getElementById('vaInput')
-			if (count == 'un') {
-				this.timer = setTimeout(function() {
-					pwdInput.children[2].focus()
-					// pwdInput.children[1].select()
-				}, 100)
-			} else if (count == 'pw') {
-				this.timer = setTimeout(function() {
-					vaInput.children[2].focus()
-					// vaInput.children[1].select()
-				}, 100)
+		handleFocus(val) {
+			if (this.loginForm.userName == '') {
+				this.$refs.userNameIP.focus()
+			} else if (this.loginForm.password == '') {
+				this.$refs.pwdIP.focus()
+			} else if (this.loginForm.code == '') {
+				this.$refs.validateBoxIP.focus()
 			} else {
 				this.handleLogin()
 			}
 		},
 		// 重置表单
-		handleReset() {
-			this.$refs.loginForm.resetFields()
+		handleReset(form) {
+			this.$refs[form].resetFields()
 		}
 	}
 }
@@ -203,15 +186,23 @@ export default {
 }
 
 .login_LOGO {
-	height: 80px;
+	background-image: url('../assets/logo.jpg');
+	background-size: 100% 100%;
+	width: 100px;
+	height: 100px;
 	line-height: 80px;
 	font-size: 30px;
 	text-align: center;
+	margin: 0 auto;
+}
+
+.validateBoxIP {
+	width: 35%;
 }
 
 #validateBox {
-	border-radius: 10px;
+	border-radius: 5px;
 	width: 60%;
-	height: 55px;
+	height: 40px;
 }
 </style>

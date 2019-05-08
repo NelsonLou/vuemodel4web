@@ -5,7 +5,7 @@ import apiConfig from '@/apiConfig'
 import store from '@/store'
 import {
 	Message
-} from 'iview'
+} from 'element-ui';
 
 const {
 	baseURL,
@@ -34,23 +34,15 @@ Ax.interceptors.request.use(function(config) {
 
 // 添加响应拦截器
 Ax.interceptors.response.use(function(response) {
-	// token失效自动登出
-	if (response.data.code == '101' || response.data.code == '102') {
-		// Message.error({
-		// 	content: response.data.message
-		// })
-		store.dispatch('handleLogout')
-	}
-	// 请求操作失败统一提示配置
-	else if (!response.data.success) {
-		// Message.error({
-		// 	content: response.data.message
-		// })
+	if (response.data.message != undefined) {
+		Message({
+			message: response.data.message,
+			type: response.data.success ? 'success' : 'info'
+		});
 	}
 	// 响应数据统一配置
 	return response.data
 }, function(error) {
-	console.log('服务器异常');
 	// 对响应错误执行
 	Message.error('服务器异常，请稍后再试。')
 	return Promise.reject(error);

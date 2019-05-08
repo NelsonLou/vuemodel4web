@@ -4,9 +4,6 @@ import store from '@/store'
 import router from '@/router'
 import sorting from '@/utils/sorting.js'
 import url from '@/apiConfig/api'
-import {
-	Message,
-} from 'iview'
 
 const state = {
 	login: false,
@@ -52,7 +49,6 @@ const actions = {
 		Ax.post(api, para).then(res => {
 			console.log(res)
 			// if (res.success) {
-			Message.success('登陆成功')
 			commit('UPDATA_LOGIN', true)
 			sessionStorage.setItem('token', JSON.stringify(res.token))
 			sessionStorage.setItem('userName', JSON.stringify(para.userName))

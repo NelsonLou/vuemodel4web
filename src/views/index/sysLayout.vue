@@ -6,7 +6,7 @@
 			<el-menu default-active="2" class="el-menu-vertical-demo layout_menu" :collapse='menuCollapse' router unique-opened background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
 				<el-submenu index="1">
 					<template slot="title">
-						<i class="el-icon-location"></i>
+						<i class="el-icon-setting"></i>
 						<span v-show='showMenuSpan'>Module</span>
 					</template>
 					<el-menu-item index="/account">DemoPage</el-menu-item>
@@ -16,7 +16,14 @@
 		</el-aside>
 		<el-container>
 			<el-header class="clearfloat layout_header">
-				<i class="el-icon-s-unfold layout_headerIcon" @click='handleCollapse'></i>
+				<!-- 缩进按钮 -->
+				<i :class="[showMenuSpan?'el-icon-s-unfold':'el-icon-s-fold','layout_headerIcon']" @click='handleCollapse'></i>
+				<!-- 面包屑 -->
+				<el-breadcrumb separator="/">
+					<el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+					<el-breadcrumb-item>活动管理</a></el-breadcrumb-item>
+				</el-breadcrumb>
+				<!-- 下拉功能菜单 -->
 				<el-dropdown class="right layout_dropdown">
 					<span class="el-dropdown-link">
 						userName<i class="el-icon-arrow-down el-icon--right"></i>
@@ -122,5 +129,11 @@ export default {
 .layout_headerIcon {
 	font-size: 30px;
 	margin-top: 15px;
+}
+
+.el-breadcrumb {
+	display: inline-block;
+	margin-left: 20px;
+	margin-top: -5px;
 }
 </style>
