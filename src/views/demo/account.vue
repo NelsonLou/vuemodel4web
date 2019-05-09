@@ -9,8 +9,11 @@
 	<!-- 表格组件 -->
 	<tableComp ref='accountTable' :tableConf='tableConf' :tableActConf='tableActConf' class="marginTop"></tableComp>
 	<!-- 弹窗 -->
-	<el-dialog :title="dialogTitle" :visible.sync="dialogVisible">
-		<formComp ref='addFormConf' :formConf='addFormConf' :autoSubmit='true' :submitUrl='addUrl' :handleAferSubmit='getTableData'></formComp>
+	<el-dialog :title="dialogTitle" :visible.sync="dialogVisible" >
+		<div v-loading="loading">
+			<formComp ref='addFormConf' v-show='act == "add"' :formConf='addFormConf' :autoSubmit='true' :submitUrl='formUrl' :handleAferSubmit='getTableData'></formComp>
+			<formComp ref='editFormConf' v-show='act == "edit"' :formConf='addFormConf' :autoSubmit='true' :submitUrl='formUrl' :handleAferSubmit='getTableData'></formComp>
+		</div>
 		<span slot="footer" class="dialog-footer">
 			<el-button @click="dialogVisible = false">取 消</el-button>
 			<el-button type="primary" @click="handleSubmit">确 定</el-button>
@@ -25,8 +28,10 @@ export default {
 	name: 'account',
 	data() {
 		return {
+			act: '',
 			dialogTitle: '',
-			addUrl: '/mock/addUser',
+			formUrl: '/mock/addUser',
+			loading: false,
 			dialogVisible: false,
 			tableConf: [{ // 表格配置
 					prop: 'name',
@@ -69,9 +74,18 @@ export default {
 					plh: '所属角色',
 					type: 'select',
 					selectList: [{
-						value: 'roleA',
-						label: '角色A'
-					}]
+							value: 'roleA',
+							label: '角色A'
+						},
+						{
+							value: 'roleB',
+							label: '角色B'
+						},
+						{
+							value: 'roleC',
+							label: '角色C'
+						}
+					]
 				}
 			],
 			addFormConf: [{ // 筛选组件配置文件
@@ -86,9 +100,18 @@ export default {
 					plh: '所属角色',
 					type: 'select',
 					selectList: [{
-						value: 'roleA',
-						label: '角色A'
-					}]
+							value: 'roleA',
+							label: '角色A'
+						},
+						{
+							value: 'roleB',
+							label: '角色B'
+						},
+						{
+							value: 'roleC',
+							label: '角色C'
+						}
+					]
 				},
 				{
 					valName: 'sex',
@@ -135,6 +158,38 @@ export default {
 						label: '禁用'
 					}]
 				},
+				{
+					valName: 'note',
+					label: '备注',
+					type: 'textarea',
+					plh: '备注'
+				},
+				{
+					valName: 'birthday',
+					label: '生日',
+					type: 'date',
+					plh: '生日'
+				},
+				{
+					valName: 'department',
+					label: '所属部门',
+					plh: '所属部门',
+					type: 'select',
+					multiple: true,
+					selectList: [{
+							value: 'departA',
+							label: '部门A'
+						},
+						{
+							value: 'departB',
+							label: '部门B'
+						},
+						{
+							value: 'departC',
+							label: '部门C'
+						}
+					]
+				},
 			]
 		}
 	},
@@ -149,10 +204,24 @@ export default {
 		},
 		// 编辑
 		handleEdit(row) {
-			console.log('edit', row);
+			let api = '/mock/userInfo',
+				form = {}
+			this.act = 'edit'
+			this.$Ax.get(api)
+				.then(res => {
+					this.dialogVisible = true
+					form = res
+				}).catch(err => {
+					// eslint-disable-next-line
+					console.log(err);
+				})
+				.then(res => {
+					this.$refs.editFormConf.handleDataEnter(form)
+				})
 		},
 		// 添加
 		handleAdd() {
+			this.act = 'add'
 			this.dialogTitle = '添加用户'
 			this.dialogVisible = true
 		},
@@ -172,6 +241,7 @@ export default {
 							this.getTableData()
 						})
 						.catch(err => {
+							// eslint-disable-next-line
 							console.log(err);
 						})
 				})
@@ -182,8 +252,9 @@ export default {
 					})
 				});
 		},
+		// 提交表单
 		handleSubmit() {
-			this.$refs.addFormConf.handleSubmit()
+			this.$refs[this.act + 'FormConf'].handleSubmit()
 		}
 	}
 }

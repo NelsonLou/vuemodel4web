@@ -5,7 +5,7 @@
             <!-- input -->
             <el-input class='formInput' v-if='item.type=="input"' size='small' :placeholder="item.plh" v-model='form[item.valName]' clearable></el-input>
             <!-- select -->
-            <el-select class='formInput' v-if='item.type=="select"' size='small' v-model='form[item.valName]'  :placeholder="item.plh" clearable>
+            <el-select class='formInput' v-if='item.type=="select"' :multiple='item.multiple' size='small' v-model='form[item.valName]'  :placeholder="item.plh" clearable>
                 <el-option v-for='selItem in item.selectList' :key='selItem.value' :value="selItem.value" :label='selItem.label'></el-option>
             </el-select>
             <!-- timeRange -->
@@ -16,7 +16,12 @@
             </el-cascader>
             <!-- switch -->
             <el-switch v-if='item.type=="switch"' v-model="form[item.valName]" :active-value='item.selectList[0].value' :inactive-value='item.selectList[1].value' :active-text="item.selectList[0].label" :inactive-text="item.selectList[1].label">
-</el-switch>
+            </el-switch>
+            <!-- textarea -->
+            <el-input v-if='item.type=="textarea"' :placeholder='item.plh' type="textarea" v-model="form[item.valName]"></el-input>
+            <!-- date -->
+            <el-date-picker v-if='item.type=="date"' v-model="form[item.valName]" type="datetime" placeholder="选择日期时间" default-time="12:00:00">
+            </el-date-picker>
         </el-form-item>
     </el-form>
 </div>
@@ -27,7 +32,6 @@ export default {
 	name: 'formComp',
 	data() {
 		return {
-			asd: '',
 			form: {},
 			showForm: false,
 		}
@@ -66,14 +70,27 @@ export default {
 		}
 	},
 	methods: {
+		// 数据插入表单
+		handleDataEnter(form) {
+			for (let i in this.form) {
+				this.form[i] = form[i]
+			}
+			for (let i in this.formConf) {
+				if (this.formConf[i].childValName) {
+					this.form[this.formConf[i].valName] = [form[this.formConf[i].childValName[0]], form[this.formConf[i].childValName[1]]]
+				} else {
+					this.form[this.formConf[i].valName] = form[this.formConf[i].valName]
+				}
+			}
+		},
 		// 数据提交
 		handleSubmit(flag) {
-			console.log(this.handleDealForm(this.form));
 			if (this.autoSubmit) { // 组件自动提交表单
 				this.$Ax.post(this.submitUrl, this.handleDealForm(this.form))
 					.then(res => {
 						this.$emit('handleAferSubmit')
 					}).catch(err => {
+						// eslint-disable-next-line
 						console.log(err);
 					})
 			} else { // 返还表单数据至父组件
@@ -86,6 +103,9 @@ export default {
 			for (let i in this.formConf) {
 				if (this.formConf[i].childValName) {
 					delete newForm[this.formConf[i].valName]
+				}
+				if (this.formConf[i].type == 'date') {
+					newForm[this.formConf[i].valName] = this.$Utils.dealTime(newForm[this.formConf[i].valName])
 				}
 			}
 			return newForm

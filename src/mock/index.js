@@ -55,6 +55,22 @@ const userAdd = function() {
 	}
 }
 
+const userInfo = function() {
+	return {
+		birthday: "1994-07-07 12:00:00",
+		city: "宁波",
+		department: ['departA', 'departC'],
+		forbidden: "1",
+		limitEndTime: "2019-06-05 00:00:00",
+		limitStartTime: "2019-05-01 00:00:00",
+		note: "测试用户",
+		province: "浙江",
+		roleName: "roleA",
+		sex: "1",
+		userName: "测试用户",
+	}
+}
+
 // 登陆
 Mock.mock('/mock/login', 'post', postLogin);
 // 获取验证码
@@ -65,3 +81,5 @@ Mock.mock('/mock/userList', 'get', userList);
 Mock.mock('/mock/deleteUser', 'post', userDelete);
 // 新增用户
 Mock.mock('/mock/addUser', 'post', userAdd);
+// 用户详情
+Mock.mock('/mock/userInfo', 'get', userInfo);

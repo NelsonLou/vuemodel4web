@@ -36,9 +36,8 @@ const actions = {
 				code: res.code,
 			})
 		}).catch(err => {
-			/* eslint-disable */
+			// eslint-disable-next-line
 			console.log(err);
-			/* eslint-enable */
 		})
 	},
 	// 登陆
@@ -47,8 +46,6 @@ const actions = {
 	}, para) => {
 		let api = '/mock/login'
 		Ax.post(api, para).then(res => {
-			console.log(res)
-			// if (res.success) {
 			commit('UPDATA_LOGIN', true)
 			sessionStorage.setItem('token', JSON.stringify(res.token))
 			sessionStorage.setItem('userName', JSON.stringify(para.userName))
@@ -60,9 +57,8 @@ const actions = {
 				path: '/'
 			})
 		}).catch(err => {
-			/* eslint-disable */
+			// eslint-disable-next-line
 			console.log(err);
-			/* eslint-enable */
 		})
 	},
 	// 登出

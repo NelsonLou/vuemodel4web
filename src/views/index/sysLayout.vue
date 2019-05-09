@@ -2,7 +2,7 @@
 <div class="layout">
 	<el-container>
 		<el-aside class="layout_side" :width="asideWidth">
-			<div class="layout_LOGO_l">LOGO</div>
+			<div class="layout_LOGO_l"></div>
 			<el-menu default-active="2" class="el-menu-vertical-demo layout_menu" :collapse='menuCollapse' router unique-opened background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
 				<el-submenu index="1">
 					<template slot="title">
@@ -24,13 +24,13 @@
 					<el-breadcrumb-item>活动管理</a></el-breadcrumb-item>
 				</el-breadcrumb>
 				<!-- 下拉功能菜单 -->
-				<el-dropdown class="right layout_dropdown">
+				<el-dropdown class="right layout_dropdown" @command="handleClick">
 					<span class="el-dropdown-link">
 						userName<i class="el-icon-arrow-down el-icon--right"></i>
 					</span>
 					<el-dropdown-menu slot="dropdown">
-						<el-dropdown-item>EditPassword</el-dropdown-item>
-						<el-dropdown-item>Logout</el-dropdown-item>
+						<el-dropdown-item command='EditPassword'>EditPassword</el-dropdown-item>
+						<el-dropdown-item command='Logout'>Logout</el-dropdown-item>
 					</el-dropdown-menu>
 				</el-dropdown>
 			</el-header>
@@ -69,6 +69,11 @@ export default {
 			setTimeout(function() {
 				that.menuCollapse = !that.menuCollapse
 			}, 100)
+		},
+		handleClick(command) {
+			if (command == 'Logout') {
+				this.$store.dispatch('handleLogout')
+			}
 		}
 	}
 }
@@ -88,7 +93,7 @@ export default {
 }
 
 .layout_menu {
-	height: calc(100vh - 60px);
+	height: calc(100vh - 80px);
 	/* 设置导航字体不能被选中 */
 	-webkit-user-select: none;
 	-moz-user-select: none;
@@ -105,9 +110,13 @@ export default {
 
 .layout_LOGO_l {
 	height: 60px;
+	width: 80px;
 	background: #f5f7f9;
 	text-align: center;
 	line-height: 60px;
+	background-color: #fff;
+	background-image: url('../../assets/logo.jpg');
+	background-size: 100% 100%;
 }
 
 .el-submenu .el-menu-item {
@@ -135,5 +144,9 @@ export default {
 	display: inline-block;
 	margin-left: 20px;
 	margin-top: -5px;
+}
+
+.el-menu--collapse {
+	width: auto;
 }
 </style>
